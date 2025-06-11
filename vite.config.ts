@@ -7,6 +7,10 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1500, // Increase the limit (in kB)
     rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'CHUNK_SIZE_WARNING') return
+        warn(warning)
+      },
       output: {
         // You can also manually split chunks, for example:
         manualChunks(id) {
